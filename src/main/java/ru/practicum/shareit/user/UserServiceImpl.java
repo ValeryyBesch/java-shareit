@@ -11,13 +11,12 @@ public class UserServiceImpl implements UserService {
     UserDao repository;
 
     @Override
-    public User addUser(User user) {
-        return repository.addUser(user);
+    public void addUser(User user) {
+        repository.addUser(user);
     }
 
     @Override
     public User updateUser(User user, long userId) {
-
         repository.getUser(userId);
         user.setId(userId);
         return repository.updateUser(user, userId);
