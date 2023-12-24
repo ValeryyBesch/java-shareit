@@ -2,7 +2,9 @@ package ru.practicum.shareit.user;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 /**
  * TODO Sprint add-controllers.
@@ -10,13 +12,12 @@ import lombok.EqualsAndHashCode;
 
 @Data
 @Builder
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class User {
+public class UserDto {
 
-    @EqualsAndHashCode.Include
     private long id;
-
+    @NotBlank
     private String name;
-
+    @NotBlank
+    @Email
     private String email;
 }
