@@ -16,7 +16,7 @@ public class ItemDaoImpl implements ItemDao {
 
     @Override
     public Item get(long itemId) {
-            return allItems.get(itemId);
+        return allItems.get(itemId);
     }
 
     @Override
@@ -43,8 +43,8 @@ public class ItemDaoImpl implements ItemDao {
         return item;
     }
 
-        @Override
-        public Item update(long userId, Item item) {
+    @Override
+    public Item update(long userId, Item item) {
 
         Item newItem = allItems.get(item.getId());
 
@@ -70,11 +70,10 @@ public class ItemDaoImpl implements ItemDao {
     }
 
 
-
     @Override
     public List<Item> getItemsByUserId(long userId) {
 
-       return items.getOrDefault(userId, Collections.emptyList());
+        return items.getOrDefault(userId, Collections.emptyList());
     }
 
     @Override

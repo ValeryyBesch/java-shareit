@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Item {
 
-   @EqualsAndHashCode.Include
+    @EqualsAndHashCode.Include
     private long id;
 
     private String name;

@@ -21,7 +21,8 @@ public class UserDaoImpl implements UserDao {
         if (user == null) {
             throw new NotFoundException(User.class, "Пользователь с id " + userId + " не найден.");
         }
-        return user;    }
+        return user;
+    }
 
 
     public List<User> getAllUsers() {
@@ -29,10 +30,10 @@ public class UserDaoImpl implements UserDao {
     }
 
 
-    public User addUser(User user) {
-        for (User users : getAllUsers()){
-            if(users.getEmail().equals(user.getEmail())){
-                throw new ConflictException(user.getEmail() +"Уже зарегистрирован");
+    public void addUser(User user) {
+        for (User users : getAllUsers()) {
+            if (users.getEmail().equals(user.getEmail())) {
+                throw new ConflictException(user.getEmail() + "Уже зарегистрирован");
             }
         }
 
@@ -41,7 +42,6 @@ public class UserDaoImpl implements UserDao {
         }
 
         userMap.put(user.getId(), user);
-        return user;
     }
 
     public User updateUser(User user, long userId) {
@@ -49,7 +49,7 @@ public class UserDaoImpl implements UserDao {
         if (user.getEmail() != null) {
             for (User userCheckEmail : getAllUsers()) {
                 if (userCheckEmail.getEmail().equals(user.getEmail()) && userCheckEmail.getId() != userId) {
-                    throw new ConflictException(user.getEmail()+ "Уже зарегистрирован");
+                    throw new ConflictException(user.getEmail() + "Уже зарегистрирован");
                 }
             }
 
@@ -65,6 +65,7 @@ public class UserDaoImpl implements UserDao {
         userMap.put(userId, newUser);
         return userMap.get(user.getId());
     }
+
     public void deleteUser(User user) {
         userMap.remove(user.getId());
     }

@@ -52,6 +52,6 @@ public class UserController {
                 .stream()
                 .map(mapper::returnUserDto)
                 .collect(toList());
-   }
+    }
 }
 // как лучше реализовать структуру классов как items в или как в user?

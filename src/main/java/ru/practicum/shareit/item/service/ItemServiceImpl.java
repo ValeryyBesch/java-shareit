@@ -28,7 +28,7 @@ public class ItemServiceImpl implements ItemService {
         item.setId(itemId);
         item.setOwner(userId);
         if (!getItemsUser(userId).contains(item)) {
-            throw new NotFoundException("пользователь с id "+ userId+" не найден");
+            throw new NotFoundException("пользователь с id " + userId + " не найден");
         }
         return itemDao.update(userId, item);
     }
