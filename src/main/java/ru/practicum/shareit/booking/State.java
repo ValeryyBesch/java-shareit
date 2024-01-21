@@ -17,10 +17,11 @@ public enum State {
     REJECTED;
 
     public static State getEnumValue(String state) {
-        try {
-            return State.valueOf(state);
-        } catch (Exception e) {
-            throw new StatusException("unknown state: " + state);
-        }
+    try {
+        return State.valueOf(state);
+    } catch (Exception e) {
+        throw new StatusException("Unknown state: " + state);
+    }
+
     }
 }

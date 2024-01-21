@@ -46,21 +46,17 @@ public class BookingServiceImpl implements BookingService {
         booking.setBooker(user);
 
         if (item.getOwner().equals(user)) {
-            throw new NotFoundException(User.class, "Владелец " + userId + " не может забронировать свой собственный элемент");
+            throw new NotFoundException(User.class, "Пользователь " + userId + " забронировал свой инструмент");
         }
-
         if (!item.getAvailable()) {
-            throw new NotValidException("Элемент " + item.getId() + " забронирован");
+            throw new NotValidException("Инструмент " + item.getId() + " забронирован");
         }
-
         if (booking.getStart().isAfter(booking.getEnd())) {
-            throw new NotValidException("Начальная дата не может быть позже конечной даты");
+            throw new NotValidException("Старт позже конца");
         }
-
         if (booking.getStart().isEqual(booking.getEnd())) {
-            throw new NotValidException("Начальная дата не может быть равной конечной дате");
+            throw new NotValidException("Старт равен концу");
         }
-
 
         bookingRepository.save(booking);
 
@@ -75,13 +71,13 @@ public class BookingServiceImpl implements BookingService {
         Booking booking = bookingRepository.findById(bookingId).get();
 
         if (booking.getItem().getOwner().getId() != userId) {
-            throw new NotFoundException(User.class, "Только владелец" + userId +
-                    " элемента может изменять статус бронирования");
+            throw new NotFoundException(User.class, "Только пользователь " + userId +
+                    " может менять статус.");
         }
 
         if (approved) {
             if (booking.getStatus().equals(Status.APPROVED)) {
-                throw new NotValidException("Некорректный запрос на обновление статуса");
+                throw new NotValidException("Некорректный статус");
             }
             booking.setStatus(Status.APPROVED);
         } else {
@@ -104,8 +100,7 @@ public class BookingServiceImpl implements BookingService {
         if (booking.getBooker().getId() == userId || booking.getItem().getOwner().getId() == userId) {
             return BookingMapper.returnBookingDto(booking);
         } else {
-            throw new NotFoundException(User.class, "Для получения информации о бронировании могут обращаться " +
-                    "только автомобиль бронирования или владелец элемента " + userId);
+            throw new NotFoundException(User.class, "Нет доступа к информации" + userId );
         }
     }
 
@@ -150,7 +145,7 @@ public class BookingServiceImpl implements BookingService {
         unionService.checkUser(userId);
 
         if (itemRepository.findByOwnerId(userId).isEmpty()) {
-            throw new NotValidException("У пользователя нет элементов для бронирования");
+            throw new NotValidException("У пользователя нет товаров для бронирования");
         }
 
         List<Booking> bookings = null;
