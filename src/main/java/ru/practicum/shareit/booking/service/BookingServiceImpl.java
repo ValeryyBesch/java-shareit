@@ -100,7 +100,7 @@ public class BookingServiceImpl implements BookingService {
         if (booking.getBooker().getId() == userId || booking.getItem().getOwner().getId() == userId) {
             return BookingMapper.returnBookingDto(booking);
         } else {
-            throw new NotFoundException(User.class, "Нет доступа к информации" + userId );
+            throw new NotFoundException(User.class, "Нет доступа к информации" + userId);
         }
     }
 
