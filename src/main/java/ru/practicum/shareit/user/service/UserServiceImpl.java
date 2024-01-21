@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
             List<User> findEmail = userRepository.findByEmail(user.getEmail());
 
             if (!findEmail.isEmpty() && findEmail.get(0).getId() != userId) {
-                throw new ConflictException(user.getEmail()+ "уже зарегистрирован");
+                throw new ConflictException(user.getEmail() + "уже зарегистрирован");
             }
             newUser.setEmail(user.getEmail());
         }

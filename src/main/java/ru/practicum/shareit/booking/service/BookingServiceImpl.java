@@ -75,7 +75,7 @@ public class BookingServiceImpl implements BookingService {
         Booking booking = bookingRepository.findById(bookingId).get();
 
         if (booking.getItem().getOwner().getId() != userId) {
-            throw new NotFoundException(User.class, "Только владелец"  + userId +
+            throw new NotFoundException(User.class, "Только владелец" + userId +
                     " элемента может изменять статус бронирования");
         }
 

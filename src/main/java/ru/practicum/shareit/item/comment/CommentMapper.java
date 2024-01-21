@@ -22,11 +22,11 @@ public class CommentMapper {
 
     public static Comment returnComment(CommentDto commentDto, Item item, User user, LocalDateTime dateTime) {
         return Comment.builder()
-                 .text(commentDto.getText())
-                 .created(dateTime)
-                 .item(item)
-                 .author(user)
-                 .build();
+                .text(commentDto.getText())
+                .created(dateTime)
+                .item(item)
+                .author(user)
+                .build();
     }
 
     public static List<CommentDto> returnICommentDtoList(Iterable<Comment> comments) {

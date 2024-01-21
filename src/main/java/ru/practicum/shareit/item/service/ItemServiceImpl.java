@@ -102,7 +102,7 @@ public class ItemServiceImpl implements ItemService {
             Optional<Booking> nextBooking = bookingRepository.findFirstByItemIdAndStatusAndStartAfterOrderByStartAsc(itemId, Status.APPROVED, LocalDateTime.now());
 
             if (lastBooking.isPresent()) {
-                 itemDto.setLastBooking(BookingMapper.returnBookingShortDto(lastBooking.get()));
+                itemDto.setLastBooking(BookingMapper.returnBookingShortDto(lastBooking.get()));
             } else {
                 itemDto.setLastBooking(null);
             }
@@ -169,7 +169,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Transactional(readOnly = true)
     @Override
-    public  List<ItemDto> searchItem(String text) {
+    public List<ItemDto> searchItem(String text) {
 
         if (text.equals("")) {
             return Collections.emptyList();
