@@ -1,7 +1,6 @@
 package ru.practicum.shareit.booking;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.booking.dto.BookingDto;
 import ru.practicum.shareit.booking.dto.BookingOutDto;
@@ -17,7 +16,6 @@ import static ru.practicum.shareit.util.Constant.HEADER_USER;
  */
 
 
-@Validated
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/bookings")

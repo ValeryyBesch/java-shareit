@@ -1,9 +1,11 @@
 package ru.practicum.shareit.user.service;
 
 import lombok.AllArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.exception.ConflictException;
+import ru.practicum.shareit.exception.NotValidException;
 import ru.practicum.shareit.user.UserMapper;
 import ru.practicum.shareit.user.UserRepository;
 import ru.practicum.shareit.user.dto.UserDto;
@@ -24,7 +26,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto addUser(UserDto userDto) {
         User user = UserMapper.returnUser(userDto);
-        userRepository.save(user);
+        try {
+            userRepository.save(user);
+        } catch (DataIntegrityViolationException e) {
+            throw new ConflictException("Пользователь с электронной почтой  " + user.getEmail() + " уже существует.");
+        }
         return UserMapper.returnUserDto(user);
     }
 
@@ -40,6 +46,9 @@ public class UserServiceImpl implements UserService {
         }
 
         if (user.getEmail() != null) {
+            if (user.getEmail().trim().isEmpty()) {
+                throw new NotValidException("пустая строка");
+            }
             List<User> findEmail = userRepository.findByEmail(user.getEmail());
 
             if (!findEmail.isEmpty() && findEmail.get(0).getId() != userId) {

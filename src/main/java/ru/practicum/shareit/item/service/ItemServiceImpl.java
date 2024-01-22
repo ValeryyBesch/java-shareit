@@ -53,20 +53,25 @@ public class ItemServiceImpl implements ItemService {
     @Transactional
     @Override
     public ItemDto updateItem(ItemDto itemDto, long itemId, long userId) {
-
         unionService.checkUser(userId);
-        User user = userRepository.findById(userId).get();
+        User user = userRepository.findById(userId).orElseThrow(() ->
+                new NotFoundException(User.class, "User with id " + userId + " not found"));
 
         unionService.checkItem(itemId);
         Item item = ItemMapper.returnItem(itemDto, user);
 
         item.setId(itemId);
 
-        if (!itemRepository.findByOwnerId(userId).contains(item)) {
-            throw new NotFoundException(Item.class, "the item was not found with the user id " + userId);
+        if (item.getName() == null && item.getDescription() == null && item.getAvailable() == null) {
+            throw new NotValidException("At least one field (name, description, available) must be provided for update.");
         }
 
-        Item newItem = itemRepository.findById(item.getId()).get();
+        if (!itemRepository.findByOwnerId(userId).contains(item)) {
+            throw new NotFoundException(Item.class, "The item was not found with the user id " + userId);
+        }
+
+        Item newItem = itemRepository.findById(item.getId()).orElseThrow(() ->
+                new NotFoundException(Item.class, "Item with id " + itemId + " not found"));
 
         if (item.getName() != null) {
             newItem.setName(item.getName());
@@ -83,6 +88,7 @@ public class ItemServiceImpl implements ItemService {
         itemRepository.save(newItem);
 
         return ItemMapper.returnItemDto(newItem);
+
     }
 
     @Transactional(readOnly = true)

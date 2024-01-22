@@ -57,6 +57,9 @@ public class BookingServiceImpl implements BookingService {
         if (booking.getStart().isEqual(booking.getEnd())) {
             throw new NotValidException("Старт равен концу");
         }
+        if (booking.getStart().isBefore(LocalDateTime.now())) {
+            throw new NotValidException("Вы не можете забронировать элемент на прошедший период");
+        }
 
         bookingRepository.save(booking);
 
@@ -71,7 +74,7 @@ public class BookingServiceImpl implements BookingService {
         Booking booking = bookingRepository.findById(bookingId).get();
 
         if (booking.getItem().getOwner().getId() != userId) {
-            throw new NotFoundException(User.class, "Только пользователь " + userId +
+            throw new NotFoundException(User.class, "Только пользователь " + booking.getItem().getOwner().getId() +
                     " может менять статус.");
         }
 
