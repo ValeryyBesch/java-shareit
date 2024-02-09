@@ -108,7 +108,7 @@ public class ItemServiceImpl implements ItemService {
             Optional<Booking> nextBooking = bookingRepository.findFirstByItemIdAndStatusAndStartAfterOrderByStartAsc(itemId, Status.APPROVED, LocalDateTime.now());
 
             if (lastBooking.isPresent()) {
-                 itemDto.setLastBooking(BookingMapper.returnBookingShortDto(lastBooking.get()));
+                itemDto.setLastBooking(BookingMapper.returnBookingShortDto(lastBooking.get()));
             } else {
                 itemDto.setLastBooking(null);
             }
@@ -176,7 +176,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Transactional(readOnly = true)
     @Override
-    public  List<ItemDto> searchItem(String text, Integer from, Integer size) {
+    public List<ItemDto> searchItem(String text, Integer from, Integer size) {
 
         PageRequest pageRequest = unionService.checkPageSize(from, size);
 
