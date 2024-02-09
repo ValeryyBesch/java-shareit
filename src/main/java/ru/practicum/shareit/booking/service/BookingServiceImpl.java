@@ -59,9 +59,6 @@ public class BookingServiceImpl implements BookingService {
         if (booking.getStart().isEqual(booking.getEnd())) {
             throw new NotValidException("Старт равен концу");
         }
-        if (booking.getStart().isBefore(LocalDateTime.now())) {
-            throw new NotValidException("Вы не можете забронировать элемент на прошедший период");
-        }
 
         bookingRepository.save(booking);
 
