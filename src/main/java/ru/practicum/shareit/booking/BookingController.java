@@ -27,20 +27,20 @@ public class BookingController {
 
     @PostMapping
     public ResponseEntity<BookingOutDto> addBooking(@RequestHeader(HEADER_USER) Long userId,
-                                    @RequestBody @Valid BookingDto bookingDto) {
+                                                    @RequestBody @Valid BookingDto bookingDto) {
         return ResponseEntity.ok(bookingService.addBooking(bookingDto, userId));
     }
 
     @PatchMapping("/{bookingId}")
     public ResponseEntity<BookingOutDto> approveBooking(@RequestHeader(HEADER_USER) Long userId,
-                                        @PathVariable Long bookingId,
-                                        @RequestParam Boolean approved) {
+                                                        @PathVariable Long bookingId,
+                                                        @RequestParam Boolean approved) {
         return ResponseEntity.ok(bookingService.approveBooking(userId, bookingId, approved));
     }
 
     @GetMapping("/{bookingId}")
     public ResponseEntity<BookingOutDto> getBookingById(@RequestHeader(HEADER_USER) Long userId,
-                                        @PathVariable Long bookingId) {
+                                                        @PathVariable Long bookingId) {
         return ResponseEntity.ok(bookingService.getBookingById(userId, bookingId));
     }
 
@@ -54,8 +54,9 @@ public class BookingController {
 
     @GetMapping("/owner")
     public ResponseEntity getAllBookingsForAllItemsByOwnerId(@RequestHeader(HEADER_USER) Long userId,
-                                                                  @RequestParam(defaultValue = "ALL", required = false) String state,
-                                                                  @RequestParam(defaultValue = "0", required = false) Integer from,
-                                                                  @RequestParam(defaultValue = "10", required = false) Integer size)  {
-        return ResponseEntity.ok(bookingService.getAllBookingsForAllItemsByOwnerId(userId, state, from, size));    }
+                                                             @RequestParam(defaultValue = "ALL", required = false) String state,
+                                                             @RequestParam(defaultValue = "0", required = false) Integer from,
+                                                             @RequestParam(defaultValue = "10", required = false) Integer size) {
+        return ResponseEntity.ok(bookingService.getAllBookingsForAllItemsByOwnerId(userId, state, from, size));
+    }
 }
