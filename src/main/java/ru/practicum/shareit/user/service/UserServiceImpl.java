@@ -25,11 +25,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto addUser(UserDto userDto) {
         User user = UserMapper.returnUser(userDto);
-        try {
-            userRepository.save(user);
-        } catch (DataIntegrityViolationException e) {
-            throw new ConflictException("Пользователь с электронной почтой  " + user.getEmail() + " уже существует.");
-        }
+        userRepository.save(user);
+
         return UserMapper.returnUserDto(user);
     }
 
