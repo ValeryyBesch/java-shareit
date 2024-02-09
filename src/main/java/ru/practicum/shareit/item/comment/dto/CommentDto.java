@@ -13,8 +13,8 @@ public class CommentDto {
 
     public Long id;
 
-    @NotNull
-    @NotBlank
+    @NotNull(message = "text cannot be empty.")
+    @NotBlank(message = "text cannot be empty.")
     private String text;
 
     private LocalDateTime created;

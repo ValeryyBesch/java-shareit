@@ -20,7 +20,7 @@ import javax.persistence.*;
 public class Item {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
     private Long id;
 
@@ -40,5 +40,4 @@ public class Item {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "request_id")
     private ItemRequest request;
-
 }

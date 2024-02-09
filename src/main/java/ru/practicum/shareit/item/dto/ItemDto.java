@@ -20,15 +20,15 @@ public class ItemDto {
 
     private Long id;
 
-    @NotNull
-    @NotBlank
+    @NotNull(message = "Name cannot be empty or contain spaces.")
+    @NotBlank(message = "Name cannot be empty or contain spaces.")
     private String name;
 
-    @NotNull
-    @NotBlank
+    @NotNull(message = "Description cannot be empty")
+    @NotBlank(message = "Description cannot be blank")
     private String description;
 
-    @NotNull
+    @NotNull(message = "Available cannot be empty")
     private Boolean available;
 
     private BookingShortDto lastBooking;
@@ -36,6 +36,7 @@ public class ItemDto {
     private BookingShortDto nextBooking;
 
     private List<CommentDto> comments;
-    @Positive
+
+    @Positive(message = "must be positive")
     private Long requestId;
 }
