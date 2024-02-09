@@ -2,11 +2,11 @@ package ru.practicum.shareit.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.shareit.user.dto.UserDto;
+import ru.practicum.shareit.user.service.UserServiceImpl;
 
 import javax.validation.Valid;
 import java.util.List;
-
-import static java.util.stream.Collectors.toList;
 
 /**
  * TODO Sprint add-controllers.
@@ -19,21 +19,15 @@ import static java.util.stream.Collectors.toList;
 public class UserController {
 
     private final UserServiceImpl userService;
-    private final UserMapper mapper;
 
     @PostMapping
     public UserDto addUser(@RequestBody @Valid UserDto userDto) {
-
-        User user = mapper.returnUser(userDto);
-        userService.addUser(user);
-        return mapper.returnUserDto(user);
+        return userService.addUser(userDto);
     }
 
     @PatchMapping("/{userId}")
     public UserDto updateUser(@RequestBody UserDto userDto, @PathVariable Long userId) {
-        User user = mapper.returnUser(userDto);
-        User newUser = userService.updateUser(user, userId);
-        return mapper.returnUserDto(newUser);
+        return userService.updateUser(userDto, userId);
     }
 
     @DeleteMapping("/{userId}")
@@ -43,15 +37,11 @@ public class UserController {
 
     @GetMapping("/{userId}")
     public UserDto getUser(@PathVariable Long userId) {
-        return mapper.returnUserDto(userService.getUserById(userId));
+        return userService.getUserById(userId);
     }
 
     @GetMapping
     public List<UserDto> getAllUsers() {
-        return userService.getAllUsers()
-                .stream()
-                .map(mapper::returnUserDto)
-                .collect(toList());
+        return userService.getAllUsers();
     }
 }
-// как лучше реализовать структуру классов как items в или как в user?
