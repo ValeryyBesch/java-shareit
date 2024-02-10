@@ -87,6 +87,7 @@ public class BookingControllerTest {
                 .status(Status.APPROVED)
                 .build();
     }
+
     @Test
     void addBooking() throws Exception {
         when(bookingService.addBooking(any(BookingDto.class), anyLong())).thenReturn(firstBookingOutDto);
