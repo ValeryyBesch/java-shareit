@@ -1,7 +1,6 @@
 package ru.practicum.shareit.user.service;
 
 import lombok.AllArgsConstructor;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.exception.ConflictException;
@@ -24,6 +23,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public UserDto addUser(UserDto userDto) {
+
         User user = UserMapper.returnUser(userDto);
         userRepository.save(user);
 
@@ -33,6 +33,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public UserDto updateUser(UserDto userDto, long userId) {
+
         User user = UserMapper.returnUser(userDto);
         user.setId(userId);
 
@@ -60,6 +61,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public void deleteUser(long userId) {
+
         unionService.checkUser(userId);
         userRepository.deleteById(userId);
     }
@@ -67,6 +69,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = true)
     @Override
     public UserDto getUserById(long userId) {
+
         unionService.checkUser(userId);
         return UserMapper.returnUserDto(userRepository.findById(userId).get());
     }
@@ -74,6 +77,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = true)
     @Override
     public List<UserDto> getAllUsers() {
+
         return UserMapper.returnUserDtoList(userRepository.findAll());
     }
 }
