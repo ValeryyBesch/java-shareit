@@ -65,14 +65,14 @@ public class BookingControllerTest {
 
         bookingDto = BookingDto.builder()
                 .itemId(1L)
-                .start(LocalDateTime.of(2023, 8, 4, 0, 0))
-                .end(LocalDateTime.of(2023, 8, 4, 12, 0))
+                .start(LocalDateTime.of(2024, 8, 4, 0, 0))
+                .end(LocalDateTime.of(2024, 8, 4, 12, 0))
                 .build();
 
         firstBookingOutDto = BookingOutDto.builder()
                 .id(1L)
-                .start(LocalDateTime.of(2023, 8, 4, 0, 0))
-                .end(LocalDateTime.of(2023, 8, 4, 12, 0))
+                .start(LocalDateTime.of(2024, 8, 4, 0, 0))
+                .end(LocalDateTime.of(2024, 8, 4, 12, 0))
                 .item(itemDto)
                 .booker(user)
                 .status(Status.APPROVED)
@@ -80,8 +80,8 @@ public class BookingControllerTest {
 
         secondBookingOutDto = BookingOutDto.builder()
                 .id(2L)
-                .start(LocalDateTime.of(2023, 8, 4, 14, 0))
-                .end(LocalDateTime.of(2023, 8, 4, 16, 0))
+                .start(LocalDateTime.of(2024, 8, 4, 14, 0))
+                .end(LocalDateTime.of(2024, 8, 4, 16, 0))
                 .item(itemDto)
                 .booker(user)
                 .status(Status.APPROVED)

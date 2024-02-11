@@ -26,9 +26,9 @@ public class BookingController {
     private final BookingService bookingService;
 
     @PostMapping
-    public ResponseEntity<BookingOutDto> addBooking(@RequestHeader(HEADER_USER) Long userId,
+    public BookingOutDto addBooking(@RequestHeader(HEADER_USER) Long userId,
                                                     @RequestBody @Valid BookingDto bookingDto) {
-        return ResponseEntity.ok(bookingService.addBooking(bookingDto, userId));
+        return bookingService.addBooking(bookingDto, userId);
     }
 
     @PatchMapping("/{bookingId}")

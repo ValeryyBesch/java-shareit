@@ -38,10 +38,13 @@ public class BookingServiceImpl implements BookingService {
     public BookingOutDto addBooking(BookingDto bookingDto, long userId) {
 
         unionService.checkItem(bookingDto.getItemId());
-        Item item = itemRepository.findById(bookingDto.getItemId()).get();
+        Item item = itemRepository.findById(bookingDto.getItemId())
+                .orElseThrow(() -> new NotFoundException(Item.class, "Item with ID " + bookingDto.getItemId() + " not found"));
+
 
         unionService.checkUser(userId);
-        User user = userRepository.findById(userId).get();
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new NotFoundException(User.class, "User with ID " + userId + " not found"));
 
         Booking booking = BookingMapper.returnBooking(bookingDto);
         booking.setItem(item);
