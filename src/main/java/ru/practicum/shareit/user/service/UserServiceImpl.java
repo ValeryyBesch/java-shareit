@@ -1,11 +1,9 @@
 package ru.practicum.shareit.user.service;
 
 import lombok.AllArgsConstructor;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.exception.ConflictException;
-import ru.practicum.shareit.exception.NotValidException;
 import ru.practicum.shareit.user.UserMapper;
 import ru.practicum.shareit.user.UserRepository;
 import ru.practicum.shareit.user.dto.UserDto;
@@ -25,34 +23,32 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public UserDto addUser(UserDto userDto) {
+
         User user = UserMapper.returnUser(userDto);
-        try {
-            userRepository.save(user);
-        } catch (DataIntegrityViolationException e) {
-            throw new ConflictException("Пользователь с электронной почтой  " + user.getEmail() + " уже существует.");
-        }
+        userRepository.save(user);
+
         return UserMapper.returnUserDto(user);
     }
 
     @Transactional
     @Override
     public UserDto updateUser(UserDto userDto, long userId) {
+
         User user = UserMapper.returnUser(userDto);
         user.setId(userId);
+
         unionService.checkUser(userId);
         User newUser = userRepository.findById(userId).get();
+
         if (user.getName() != null) {
             newUser.setName(user.getName());
         }
 
         if (user.getEmail() != null) {
-            if (user.getEmail().trim().isEmpty()) {
-                throw new NotValidException("пустая строка");
-            }
             List<User> findEmail = userRepository.findByEmail(user.getEmail());
 
             if (!findEmail.isEmpty() && findEmail.get(0).getId() != userId) {
-                throw new ConflictException(user.getEmail() + "уже зарегистрирован");
+                throw new ConflictException("there is already a user with an email " + user.getEmail());
             }
             newUser.setEmail(user.getEmail());
         }
@@ -65,6 +61,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public void deleteUser(long userId) {
+
         unionService.checkUser(userId);
         userRepository.deleteById(userId);
     }
@@ -72,6 +69,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = true)
     @Override
     public UserDto getUserById(long userId) {
+
         unionService.checkUser(userId);
         return UserMapper.returnUserDto(userRepository.findById(userId).get());
     }
@@ -79,6 +77,7 @@ public class UserServiceImpl implements UserService {
     @Transactional(readOnly = true)
     @Override
     public List<UserDto> getAllUsers() {
+
         return UserMapper.returnUserDtoList(userRepository.findAll());
     }
 }

@@ -12,21 +12,23 @@ import java.util.List;
 public class CommentMapper {
 
     public static CommentDto returnCommentDto(Comment comment) {
-        return CommentDto.builder()
+        CommentDto commentDto = CommentDto.builder()
                 .id(comment.getId())
                 .text(comment.getText())
                 .created(comment.getCreated())
                 .authorName(comment.getAuthor().getName())
                 .build();
+        return commentDto;
     }
 
     public static Comment returnComment(CommentDto commentDto, Item item, User user, LocalDateTime dateTime) {
-        return Comment.builder()
+       Comment comment = Comment.builder()
                 .text(commentDto.getText())
                 .created(dateTime)
                 .item(item)
                 .author(user)
                 .build();
+        return comment;
     }
 
     public static List<CommentDto> returnICommentDtoList(Iterable<Comment> comments) {
