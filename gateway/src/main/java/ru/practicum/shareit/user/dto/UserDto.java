@@ -14,7 +14,6 @@ public class UserDto {
 
     private String name;
 
-    @NotEmpty
     @Email
     private String email;
 
