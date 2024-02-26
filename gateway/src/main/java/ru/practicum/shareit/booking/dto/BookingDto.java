@@ -21,4 +21,5 @@ public class BookingDto {
 	@NotNull(message = "end cannot be empty.")
 	@Future(message = "end may be in the future")
 	private LocalDateTime end;
+
 }
