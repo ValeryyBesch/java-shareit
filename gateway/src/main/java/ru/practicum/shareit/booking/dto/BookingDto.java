@@ -11,6 +11,7 @@ import lombok.*;
 @Data
 @Builder
 public class BookingDto {
+
 	private Long itemId;
 
 	@NotNull(message = "start cannot be empty.")
@@ -20,5 +21,4 @@ public class BookingDto {
 	@NotNull(message = "end cannot be empty.")
 	@Future(message = "end may be in the future")
 	private LocalDateTime end;
-
 }
