@@ -11,7 +11,6 @@ import lombok.*;
 @Data
 @Builder
 public class BookingDto {
-
 	private Long itemId;
 
 	@NotNull(message = "start cannot be empty.")
