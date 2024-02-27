@@ -63,8 +63,8 @@ class ItemRepositoryTest {
 
     @AfterEach
     void afterEach() {
-        userRepository.deleteAll();
         itemRepository.deleteAll();
+        userRepository.deleteAll();
     }
 }
 
